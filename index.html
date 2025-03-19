@@ -3,26 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quality Control Monitoring</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Quality Control Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f9fa;
-        }
-        .dashboard-container {
-            width: 80%;
-            margin: auto;
+            margin: 20px;
             padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
             background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
         table {
             width: 100%;
@@ -30,81 +25,112 @@
             margin-top: 20px;
         }
         th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #007BFF;
+            color: white;
         }
-        .critical { background-color: red; color: white; }
-        .major { background-color: yellow; }
-        .minor { background-color: lightgray; }
-        .closed { background-color: lightgreen; }
-        canvas {
-            margin-top: 20px;
+        .critical {
+            background-color: red;
+            color: white;
+        }
+        .major {
+            background-color: yellow;
+            color: black;
+        }
+        .minor {
+            background-color: gray;
+            color: white;
+        }
+        .open {
+            background-color: orange;
+            color: black;
+        }
+        .closed {
+            background-color: green;
+            color: white;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Quality Control Monitoring</h2>
+        <p><strong>Project:</strong> Drilling PHE OSES</p>
+        <p><strong>Company/Contract:</strong> All</p>
+        <p><strong>Last Updated:</strong> 19-Mar-25</p>
+        <p><strong>Last Updated By:</strong> Fadil Wimala</p>
 
-    <div class="dashboard-container">
-        <h2>QUALITY CONTROL MONITORING</h2>
-
+        <h3>Findings Summary</h3>
         <table>
             <tr>
-                <th>Project</th>
-                <th>Company/Contract</th>
-                <th>Last Updated</th>
-                <th>Last Updated By</th>
-                <th>Open Critical Findings</th>
-                <th>Open Major Findings</th>
-                <th>Open Minor Findings</th>
-                <th>Total Open Findings</th>
-                <th>Closed Critical Findings</th>
-                <th>Closed Major Findings</th>
-                <th>Closed Minor Findings</th>
-                <th>Total Closed Findings</th>
+                <th>Type</th>
+                <th>Open</th>
+                <th>Closed</th>
             </tr>
             <tr>
-                <td>Drilling PHE OSES</td>
-                <td>All</td>
-                <td>19-Mar-25</td>
-                <td>Fadil Wimala</td>
+                <td class="critical">Critical Findings</td>
                 <td class="critical">3</td>
+                <td class="closed">0</td>
+            </tr>
+            <tr>
+                <td class="major">Major Findings</td>
                 <td class="major">8</td>
+                <td class="closed">0</td>
+            </tr>
+            <tr>
+                <td class="minor">Minor Findings</td>
                 <td class="minor">3</td>
-                <td><b>14</b></td>
                 <td class="closed">0</td>
-                <td class="closed">0</td>
-                <td class="closed">0</td>
-                <td><b>0</b></td>
+            </tr>
+            <tr>
+                <th>Total Findings</th>
+                <th>14</th>
+                <th>0</th>
             </tr>
         </table>
 
-        <canvas id="statusChart" width="400" height="100"></canvas>
+        <h3>Detailed Findings</h3>
+        <table>
+            <tr>
+                <th>Activity</th>
+                <th>Location</th>
+                <th>Equipment</th>
+                <th>Model</th>
+                <th>Observations</th>
+                <th>Severity</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>Pre-Job Inspection</td>
+                <td>PDSI Warehouse</td>
+                <td>14" Bowl Centrifuge</td>
+                <td>GNWL363D</td>
+                <td>Leakage detected during freshwater test.</td>
+                <td class="critical">Critical</td>
+                <td class="open">Open</td>
+            </tr>
+            <tr>
+                <td>Pre-Job Inspection</td>
+                <td>PDSI Warehouse</td>
+                <td>Feed Pump for 14" Bowl Centrifuge</td>
+                <td>GNG30-075C</td>
+                <td>Not equipped with proper offshore skids.</td>
+                <td class="critical">Critical</td>
+                <td class="open">Open</td>
+            </tr>
+            <tr>
+                <td>Pre-Job Inspection</td>
+                <td>PDSI Warehouse</td>
+                <td>Feed Pump for 18" Bowl Centrifuge</td>
+                <td>GNG60-150C</td>
+                <td>Not equipped with proper offshore skids.</td>
+                <td class="critical">Critical</td>
+                <td class="open">Open</td>
+            </tr>
+        </table>
     </div>
-
-    <script>
-        var ctx = document.getElementById('statusChart').getContext('2d');
-        var statusChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Open', 'Closed'],
-                datasets: [{
-                    label: 'Status',
-                    data: [14, 0], // Open and closed findings
-                    backgroundColor: ['red', 'green']
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    </script>
-
 </body>
 </html>
