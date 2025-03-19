@@ -3,17 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QC Monitoring Dashboard</title>
+    <title>Quality Control Monitoring</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #f8f9fa;
+        }
+        .dashboard-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
         }
         table {
-            width: 80%;
-            margin: 20px auto;
+            width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
             border: 1px solid black;
@@ -23,6 +37,10 @@
         th {
             background-color: #f4f4f4;
         }
+        .critical { background-color: red; color: white; }
+        .major { background-color: yellow; }
+        .minor { background-color: lightgray; }
+        .closed { background-color: lightgreen; }
         canvas {
             margin-top: 20px;
         }
@@ -30,40 +48,53 @@
 </head>
 <body>
 
-    <h2>QC Monitoring Dashboard</h2>
+    <div class="dashboard-container">
+        <h2>QUALITY CONTROL MONITORING</h2>
 
-    <!-- Data Table -->
-    <table>
-        <tr>
-            <th>Issue</th>
-            <th>Severity</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>Leakage in Centrifuge</td>
-            <td style="color: red;">Critical</td>
-            <td style="color: orange;">Open</td>
-        </tr>
-        <tr>
-            <td>Oil Catcher Missing</td>
-            <td style="color: gray;">Minor</td>
-            <td style="color: orange;">Open</td>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <th>Project</th>
+                <th>Company/Contract</th>
+                <th>Last Updated</th>
+                <th>Last Updated By</th>
+                <th>Open Critical Findings</th>
+                <th>Open Major Findings</th>
+                <th>Open Minor Findings</th>
+                <th>Total Open Findings</th>
+                <th>Closed Critical Findings</th>
+                <th>Closed Major Findings</th>
+                <th>Closed Minor Findings</th>
+                <th>Total Closed Findings</th>
+            </tr>
+            <tr>
+                <td>Drilling PHE OSES</td>
+                <td>All</td>
+                <td>19-Mar-25</td>
+                <td>Fadil Wimala</td>
+                <td class="critical">3</td>
+                <td class="major">8</td>
+                <td class="minor">3</td>
+                <td><b>14</b></td>
+                <td class="closed">0</td>
+                <td class="closed">0</td>
+                <td class="closed">0</td>
+                <td><b>0</b></td>
+            </tr>
+        </table>
 
-    <!-- Chart -->
-    <canvas id="issueChart" width="400" height="200"></canvas>
+        <canvas id="statusChart" width="400" height="100"></canvas>
+    </div>
 
     <script>
-        var ctx = document.getElementById('issueChart').getContext('2d');
-        var issueChart = new Chart(ctx, {
+        var ctx = document.getElementById('statusChart').getContext('2d');
+        var statusChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Critical', 'Major', 'Minor'],
+                labels: ['Open', 'Closed'],
                 datasets: [{
-                    label: 'Open Issues',
-                    data: [3, 8, 4],
-                    backgroundColor: ['red', 'orange', 'gray']
+                    label: 'Status',
+                    data: [14, 0], // Open and closed findings
+                    backgroundColor: ['red', 'green']
                 }]
             },
             options: {
