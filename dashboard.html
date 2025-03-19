@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QC Monitoring Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>QC Monitoring Dashboard</h2>
+
+    <!-- Data Table -->
+    <table>
+        <tr>
+            <th>Issue</th>
+            <th>Severity</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Leakage in Centrifuge</td>
+            <td style="color: red;">Critical</td>
+            <td style="color: orange;">Open</td>
+        </tr>
+        <tr>
+            <td>Oil Catcher Missing</td>
+            <td style="color: gray;">Minor</td>
+            <td style="color: orange;">Open</td>
+        </tr>
+    </table>
+
+    <!-- Chart -->
+    <canvas id="issueChart" width="400" height="200"></canvas>
+
+    <script>
+        var ctx = document.getElementById('issueChart').getContext('2d');
+        var issueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Critical', 'Major', 'Minor'],
+                datasets: [{
+                    label: 'Open Issues',
+                    data: [3, 8, 4],
+                    backgroundColor: ['red', 'orange', 'gray']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
